@@ -8,7 +8,7 @@ import { AuthServiceService } from 'src/app/Service/auth-service.service';
   styleUrls: ['./registered.component.css']
 })
 export class RegisteredComponent implements OnInit {
-  public registeredUser:FormGroup|any;
+   registeredUser: FormGroup|any;
   constructor( private form:FormBuilder,private AuthService:AuthServiceService){}
   ngOnInit(): void {
     this.registeredUser=this.form.group({
@@ -26,6 +26,7 @@ export class RegisteredComponent implements OnInit {
   }
 
   UserRegistration(){
+    console.log("this.registeredUser.value.Email",this.registeredUser.value.Email)
     let data={
       AdminEmail:this.registeredUser.value.Email,
       AdminPassword:this.registeredUser.value.Password

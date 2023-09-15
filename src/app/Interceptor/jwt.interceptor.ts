@@ -12,7 +12,12 @@ export class JWTInterceptor implements HttpInterceptor {
 
   constructor() {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let tokennizedrequest=request.clone({
+      setHeaders:{
+        Authorization:"Bearer xx,yy,zz"
+      }
+    })
+    return next.handle(tokennizedrequest);
   }
 }

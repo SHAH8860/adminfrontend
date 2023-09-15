@@ -8,8 +8,9 @@ import { RegisteredComponent } from './Component/registered/registered.component
 import { AdminComponent } from './Component/admin/admin.component';
 import { HeaderComponent } from './Component/header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthServiceService } from './Service/auth-service.service';
+import { JWTInterceptor } from './Interceptor/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,10 +24,16 @@ import { AuthServiceService } from './Service/auth-service.service';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
     
   ],
-  providers: [AuthServiceService],
+  providers: [AuthServiceService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: JWTInterceptor,
+    multi:true
+
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
