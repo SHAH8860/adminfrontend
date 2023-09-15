@@ -8,6 +8,8 @@ import { RegisteredComponent } from './Component/registered/registered.component
 import { AdminComponent } from './Component/admin/admin.component';
 import { HeaderComponent } from './Component/header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthServiceService } from './Service/auth-service.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule
     
   ],
-  providers: [],
+  providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
