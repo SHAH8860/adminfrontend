@@ -26,12 +26,11 @@ export class RegisteredComponent implements OnInit {
   }
 
   UserRegistration(){
-    console.log("this.registeredUser.value.Email",this.registeredUser.value.Email)
     let data={
       AdminEmail:this.registeredUser.value.Email,
       AdminPassword:this.registeredUser.value.Password
     }
-    console.log(data)
+    console.log(JSON.stringify(data))
     this.AuthService.RegisteredUser(data).subscribe((res:any)=>{
       console.log("Registered",res)
     })

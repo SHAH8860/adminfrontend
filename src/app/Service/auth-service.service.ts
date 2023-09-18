@@ -7,14 +7,14 @@ import { Injectable } from '@angular/core';
 export class AuthServiceService {
 
   constructor(private http:HttpClient) { }
-  url="localhost:8000/admin"
+  url="http://localhost:8000/admin"
 
   RegisteredUser(payload:any){
-    return this.http.post<any>(`${this.url}/register`,payload)
+    return this.http.post(`${this.url}/register`,JSON.stringify(payload))
   }
   
   UserLogin(user:any){
-    return this.http.post<any>(`${this.url}/login`,user)
+    return this.http.post(`${this.url}/login`,JSON.stringify(user))
   }
 
 
