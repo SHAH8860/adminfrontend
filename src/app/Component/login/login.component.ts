@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { AuthServiceService } from 'src/app/Service/auth-service.service';
 
 @Component({
@@ -9,30 +11,33 @@ import { AuthServiceService } from 'src/app/Service/auth-service.service';
 })
 export class LoginComponent implements OnInit {
   public LoginUser:FormGroup|any
-  constructor(private form:FormBuilder,private AuthService:AuthServiceService){
-
-  }
-
-  ngOnInit(): void {
+  constructor(private form:FormBuilder,private AuthService:AuthServiceService,private route:Router){
     this.LoginUser=this.form.group({
       Email:["",Validators.required],
       Password:["",Validators.required]
     })
-    
+
   }
-  
+
+  ngOnInit(): void {
+
+  }
+
 
   UserLogin(){
     let data={
-      email:this.LoginUser.value.Email,
-      password:this.LoginUser.value.Password
+      "email":this.LoginUser.value.Email,
+      "password":this.LoginUser.value.Password
 
     }
     console.log(data)
     this.AuthService.UserLogin(data).subscribe((res:any)=>{
-      console.log("Login",res)
+      localStorage.setItem('token',res.token)
+      this.route.navigate(["/admin"])
+
     })
-    
+
+
     this.LoginUser.reset()
 
   }

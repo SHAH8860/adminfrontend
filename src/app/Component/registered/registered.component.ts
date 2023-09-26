@@ -9,13 +9,16 @@ import { AuthServiceService } from 'src/app/Service/auth-service.service';
 })
 export class RegisteredComponent implements OnInit {
    registeredUser: FormGroup|any;
-  constructor( private form:FormBuilder,private AuthService:AuthServiceService){}
-  ngOnInit(): void {
+  constructor( private form:FormBuilder,private AuthService:AuthServiceService){
     this.registeredUser=this.form.group({
       Email:["",Validators.required],
       Password:["",Validators.required]
     })
-    
+  }
+  ngOnInit(): void {
+    this.getdata()
+
+
   }
 
   get Email(){
@@ -27,15 +30,22 @@ export class RegisteredComponent implements OnInit {
 
   UserRegistration(){
     let data={
-      AdminEmail:this.registeredUser.value.Email,
-      AdminPassword:this.registeredUser.value.Password
+      "AdminEmail":this.registeredUser.value.Email,
+      "AdminPassword":this.registeredUser.value.Password
     }
-    console.log(JSON.stringify(data))
+    console.log(data)
     this.AuthService.RegisteredUser(data).subscribe((res:any)=>{
-      console.log("Registered",res)
+      localStorage.setItem('token',res.token)
+
     })
+
     this.registeredUser.reset()
-    
+
+  }
+  getdata(){
+    this.AuthService.GetAllldata().subscribe((res:any)=>{
+      console.log("ressssss",res)
+    })
   }
 
 }

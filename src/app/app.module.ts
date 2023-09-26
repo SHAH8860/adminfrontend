@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthServiceService } from './Service/auth-service.service';
 import { JWTInterceptor } from './Interceptor/jwt.interceptor';
+import { AuthGuard } from './Guard/auth-guard.guard';
 
 @NgModule({
   declarations: [
@@ -25,10 +26,10 @@ import { JWTInterceptor } from './Interceptor/jwt.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
-    
+
+
   ],
-  providers: [AuthServiceService,{
+  providers: [AuthServiceService,AuthGuard,{
     provide: HTTP_INTERCEPTORS,
     useClass: JWTInterceptor,
     multi:true
